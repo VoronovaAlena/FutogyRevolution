@@ -240,43 +240,43 @@ namespace TrafficUI
             {
                 case 81051:
                     Controller1 = $"Id:{json.Id}";
-                    Phase1 = $"Id:{status.current_phase_id}";
+                    Phase1 = $"Id:{status.current_phase_id} time:{DateTime.Now.ToLongTimeString()}";
                     break;
                 case 81052:
                     Controller2 = $"Id:{json.Id}";
-                    Phase2 = $"Id:{status.current_phase_id}";
+                    Phase2 = $"Id:{status.current_phase_id} time:{DateTime.Now.ToLongTimeString()}";
                     break;
                 case 81053:
                     Controller3 = $"Id:{json.Id}";
-                    Phase3 = $"Id:{status.current_phase_id}";
+                    Phase3 = $"Id:{status.current_phase_id} time:{DateTime.Now.ToLongTimeString()}";
                     break;
                 case 81054:
                     Controller4 = $"Id:{json.Id}";
-                    Phase4 = $"Id:{status.current_phase_id}";
+                    Phase4 = $"Id:{status.current_phase_id} time:{DateTime.Now.ToLongTimeString()}";
                     break;
                 case 81055:
                     Controller5 = $"Id:{json.Id}";
-                    Phase5 = $"Id:{status.current_phase_id}";
+                    Phase5 = $"Id:{status.current_phase_id} time:{DateTime.Now.ToLongTimeString()}";
                     break;
                 case 81056:
                     Controller6 = $"Id:{json.Id}";
-                    Phase6 = $"Id:{status.current_phase_id}";
+                    Phase6 = $"Id:{status.current_phase_id} time:{DateTime.Now.ToLongTimeString()}";
                     break;
                 case 81057:
                     Controller7 = $"Id:{json.Id}";
-                    Phase7 = $"Id:{status.current_phase_id}";
+                    Phase7 = $"Id:{status.current_phase_id} time:{DateTime.Now.ToLongTimeString()}";
                     break;
                 case 81058:
                     Controller8 = $"Id:{json.Id}";
-                    Phase8 = $"Id:{status.current_phase_id}";
+                    Phase8 = $"Id:{status.current_phase_id} time:{DateTime.Now.ToLongTimeString()}";
                     break;
                 case 81059:
                     Controller9 = $"Id:{json.Id}";
-                    Phase9 = $"Id:{status.current_phase_id}";
+                    Phase9 = $"Id:{status.current_phase_id} time:{DateTime.Now.ToLongTimeString()}";
                     break;
                 case 81060:
                     Controller10 = $"Id:{json.Id}";
-                    Phase10 = $"Id:{status.current_phase_id}";
+                    Phase10 = $"Id:{status.current_phase_id} time:{DateTime.Now.ToLongTimeString()}";
                     break;
             }
         }

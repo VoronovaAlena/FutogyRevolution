@@ -56,12 +56,13 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="319*" />
+            <ColumnDefinition Width="321*" />
+            <ColumnDefinition Width="600*" />
+            <ColumnDefinition Width="680*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -79,97 +80,103 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="0" 
-                Grid.RowSpan="2" 
-                Margin="20 20 0 0"
-                Height="60"
-                Width="200"
-                Content="Start" 
-                Click="Button_Click"
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" FontSize="16" />
-
-        <GroupBox Grid.Row="0" Grid.Column="1" Header="Controller1:" Name="Controller1">
+        <GroupBox Grid.Row="0" Grid.Column="2" Header="Controller1:" Name="Controller1" Margin="24,13,24,3">
             <TextBlock Text="{Binding Path=Controller1, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="Controller2:" Name="Controller2">
+        <GroupBox Grid.Row="1" Grid.Column="2" Header="Controller2:" Name="Controller2" Margin="24,13,24,3">
             <TextBlock Text="{Binding Path=Controller2, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="Controller3" Grid.Row="2" Grid.Column="1" Header="Controller3:" >
+        <GroupBox x:Name="Controller3" Grid.Row="2" Grid.Column="2" Header="Controller3:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Controller3, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="Controller4" Grid.Row="3" Grid.Column="1" Header="Controller4:" >
+        <GroupBox x:Name="Controller4" Grid.Row="3" Grid.Column="2" Header="Controller4:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Controller4, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="Controller5" Grid.Row="4" Grid.Column="1" Header="Controller5:" >
+        <GroupBox x:Name="Controller5" Grid.Row="4" Grid.Column="2" Header="Controller5:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Controller5, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="Controller6" Grid.Row="5" Grid.Column="1" Header="Controller6:" >
+        <GroupBox x:Name="Controller6" Grid.Row="5" Grid.Column="2" Header="Controller6:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Controller6, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="Controller7" Grid.Row="6" Grid.Column="1" Header="Controller7:" >
+        <GroupBox x:Name="Controller7" Grid.Row="6" Grid.Column="2" Header="Controller7:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Controller7, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="Controller8" Grid.Row="7" Grid.Column="1" Header="Controller8:" >
+        <GroupBox x:Name="Controller8" Grid.Row="7" Grid.Column="2" Header="Controller8:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Controller8, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="Controller9" Grid.Row="8" Grid.Column="1" Header="Controller9:" >
+        <GroupBox x:Name="Controller9" Grid.Row="8" Grid.Column="2" Header="Controller9:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Controller9, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="Controller10" Grid.Row="9" Grid.Column="1" Header="Controller10:" >
+        <GroupBox x:Name="Controller10" Grid.Row="9" Grid.Column="2" Header="Controller10:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Controller10, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
-        
-        
 
-        <GroupBox x:Name="p1" Grid.Row="0" Grid.Column="2" Header="Phase:" >
+
+
+        <GroupBox x:Name="p1" Grid.Row="0" Grid.Column="3" Header="Phase:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Phase1, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="p2" Grid.Row="1" Grid.Column="2" Header="Phase:" >
+        <GroupBox x:Name="p2" Grid.Row="1" Grid.Column="3" Header="Phase:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Phase2, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="p3" Grid.Row="2" Grid.Column="2" Header="Phase:" >
+        <GroupBox x:Name="p3" Grid.Row="2" Grid.Column="3" Header="Phase:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Phase3, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="p4" Grid.Row="3" Grid.Column="2" Header="Phase:" >
+        <GroupBox x:Name="p4" Grid.Row="3" Grid.Column="3" Header="Phase:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Phase4, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="p5" Grid.Row="4" Grid.Column="2" Header="Phase:" >
+        <GroupBox x:Name="p5" Grid.Row="4" Grid.Column="3" Header="Phase:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Phase5, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="p6" Grid.Row="5" Grid.Column="2" Header="Phase:" >
+        <GroupBox x:Name="p6" Grid.Row="5" Grid.Column="3" Header="Phase:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Phase6, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="p7" Grid.Row="6" Grid.Column="2" Header="Phase:" >
+        <GroupBox x:Name="p7" Grid.Row="6" Grid.Column="3" Header="Phase:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Phase7, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="p8" Grid.Row="7" Grid.Column="2" Header="Phase:" >
+        <GroupBox x:Name="p8" Grid.Row="7" Grid.Column="3" Header="Phase:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Phase8, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="p9" Grid.Row="8" Grid.Column="2" Header="Phase:" >
+        <GroupBox x:Name="p9" Grid.Row="8" Grid.Column="3" Header="Phase:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Phase9, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
 
-        <GroupBox x:Name="p10" Grid.Row="9" Grid.Column="2" Header="Phase:" >
+        <GroupBox x:Name="p10" Grid.Row="9" Grid.Column="3" Header="Phase:" Margin="24,13,24,3" >
             <TextBlock Text="{Binding Path=Phase10, UpdateSourceTrigger=PropertyChanged}" FontSize="16" />
         </GroupBox>
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="13" Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Grid.ColumnSpan="2"/>
+
+        <Button Grid.Column="0"
+                Grid.Row="0"
+                Content="Start" 
+                Click="Button_Click"
+                FontSize="16"/>
+        <Button
+            Content="Stop" 
+            Click="Button_Click_Stop" 
+            Grid.Row="0"
+            FontSize="16" Grid.Column="1" />
+        <TextBox x:Name="_txtInput" Grid.Row="1" Grid.Column="1" Text="900" TextWrapping="Wrap" FontSize="24"/>
+        <Label Content="Interval:" Grid.Row="1"  Grid.Column="0" FontSize="24"/>
+
+
 
     </Grid>
 </Window>

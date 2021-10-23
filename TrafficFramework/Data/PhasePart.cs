@@ -14,6 +14,27 @@ namespace TrafficFramework.Data
 
 		public DateTime TimeEnd { get; set; }
 
-		public TimeSpan TimeInterval => (TimeEnd - TimeStart);
+		public TimeSpan TimeInterval { get; private set; }
+
+		/// <summary>Предел апроксимации.</summary>
+		public float ApraxDelta { get; private set; }
+
+		private float _limitAprax = 1f;
+
+		public bool HasMaxAprax { get; private set; }
+
+		public void UpdateInterval()
+		{
+			var interval = TimeEnd - TimeStart;
+			if(TimeInterval.TotalSeconds < interval.TotalSeconds)
+			{
+				ApraxDelta = (float)(TimeInterval.TotalSeconds - interval.TotalSeconds);
+				if(_limitAprax > ApraxDelta)
+				{
+					HasMaxAprax = true;
+				}
+				TimeInterval = interval;
+			}
+		}
 	}
 }

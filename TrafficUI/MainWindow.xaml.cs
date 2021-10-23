@@ -39,19 +39,24 @@ namespace TrafficUI
 			Task = task;
 		}
 
-		private void Button_Click()
-		{
-			Task.Start();
-		}
-
-		private void Reader(TaskServiceData task)
-		{
-			
-		}
-
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
+			var interval = int.TryParse(_txtInput.Text, out int result);
+			if(interval)
+			{
+				ClassHelper.TimeInterval = result;
+			}
+			else
+			{
+				ClassHelper.TimeInterval = 900;
+			}
+
 			Task.Start();
+		}
+
+		private void Button_Click_Stop(object sender, RoutedEventArgs e)
+		{
+			Task.Stop();
 		}
 	}
 }

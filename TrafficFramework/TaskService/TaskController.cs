@@ -108,10 +108,14 @@ namespace TrafficFramework.TaskService
 			using(var responceStatus = await Client.GetByID(ApiGet.GetStatus, item.ToString()))
 			{
 
-				if(responceInfo.StatusCode != System.Net.HttpStatusCode.OK
-					|| responceStatus.StatusCode != System.Net.HttpStatusCode.OK)
+				if(responceInfo.StatusCode != System.Net.HttpStatusCode.OK)
 				{
-					throw new Exception("Bad Request");
+					throw new Exception($"Bad Request: {nameof(responceInfo)}.{responceInfo.StatusCode}");
+				}
+
+				if(responceStatus.StatusCode != System.Net.HttpStatusCode.OK)
+				{
+					throw new Exception($"Bad Request: {nameof(responceStatus)}.{responceStatus.StatusCode}");
 				}
 
 				var stringFullInfo = await responceInfo.Content.ReadAsStringAsync();

@@ -44,6 +44,7 @@ namespace TrafficFramework.Data
 					cont.TimeStart = DateTime.Now;
 				}
 				cont.TimeEnd = DateTime.Now;
+				cont.UpdateInterval();
 			}
 			LastId = status.current_phase_id;
 		}

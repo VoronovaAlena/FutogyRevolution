@@ -46,7 +46,7 @@ namespace TrafficFramework.Data
 				{
 					var valid = mode.TimeInterval.TotalSeconds;
 					valid = valid < 0 ? 0 : valid;
-					Console.Write($"Id:{mode.Id}, [{valid}] ");
+					Console.Write($"Id:{mode.Id} [{(int)valid}] aprax:[{mode.ApraxDelta}]");
 				}
 				Console.WriteLine("]");
 			}
