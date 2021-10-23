@@ -28,6 +28,8 @@ namespace ConsoleTestService
 		{
 			var context = data.Context;
 
+			if(context == null) return;
+
 			PlanAnalitic.Add(data);
 
 			var docPlan   = JsonParse.Deserialize<FullInfo>(context.FullInfo);

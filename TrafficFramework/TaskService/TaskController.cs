@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Timers;
 
 using TrafficFramework.Http;
+using TrafficFramework.Http.Api;
 
 namespace TrafficFramework.TaskService
 {
@@ -50,14 +51,9 @@ namespace TrafficFramework.TaskService
 			}
 		}
 
-		public IEnumerable<TaskServiceData> FetchData(DateTime start, DateTime end)
+		public async Task Algorithm(string request, Stream context, string[] args)
 		{
-			return Container.Where(x => x.DateTime >= start && x.DateTime <= end);
-		}
-
-		public TaskServiceData FetchLast()
-		{
-			return Container.Last();
+			await Client.Post(request, context, args);
 		}
 
 		/// <summary>Класс для мониторинга состояний.</summary>
@@ -113,7 +109,7 @@ namespace TrafficFramework.TaskService
 			{
 
 				if(responceInfo.StatusCode != System.Net.HttpStatusCode.OK
-					|| responceInfo.StatusCode != System.Net.HttpStatusCode.OK)
+					|| responceStatus.StatusCode != System.Net.HttpStatusCode.OK)
 				{
 					throw new Exception("Bad Request");
 				}
@@ -125,8 +121,7 @@ namespace TrafficFramework.TaskService
 						new ControllerItem(stringFullInfo, stringStatus),
 						time);
 
-				if(!isForced && responceInfo.StatusCode == System.Net.HttpStatusCode.OK
-					&& responceInfo.StatusCode == System.Net.HttpStatusCode.OK)
+				if(!isForced)
 				{
 					lock(_locker)
 					{
@@ -134,13 +129,6 @@ namespace TrafficFramework.TaskService
 						TaskElipse?.Invoke(context);
 					}
 				}
-				else if(!isForced)
-				{
-					System.Threading.Thread.Sleep(5000);
-					return await GetInformation(id);
-				}
-
-				
 
 				return context;
 			}
