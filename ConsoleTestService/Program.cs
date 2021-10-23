@@ -1,21 +1,24 @@
 ﻿using System;
-using System.IO;
-using TrafficFramework.TaskService;
 
+using TrafficFramework.TaskService;
 using TrafficFramework.InputData;
-using System.Text.Json;
 using TrafficFramework.DataResponse;
+using TrafficFramework.Data;
+using System.Threading.Tasks;
 
 namespace ConsoleTestService
 {
 	class Program
 	{
+		static PlanAnalitic PlanAnalitic { get; } = new PlanAnalitic();
+
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Start service");
 
 			var controller = new TaskController(ClassHelper.TimeInterval, ClassHelper.InputIDs);
 			controller.TaskElipse += Reader;
+			controller.TaskComplited += Update;
 			controller.Start();
 
 			Console.ReadKey();
@@ -25,10 +28,20 @@ namespace ConsoleTestService
 		{
 			var context = data.Context;
 
+			PlanAnalitic.Add(data);
+
 			var docPlan   = JsonParse.Deserialize<FullInfo>(context.FullInfo);
 			var docStatus = JsonParse.Deserialize<Status>(context.Status);
-			
-			data.Dispose();
+
+			Console.WriteLine(docStatus.current_phase_id + " " + docStatus.rc_response.status_msg.rc_id + " " + docPlan.t_cycle + " " + DateTime.Now);
+		}
+
+		/// <summary>Вызывается при выполнении всех ДК.</summary>
+		/// <param name="sender"></param>
+		/// <param name="args"></param>
+		private static void Update(object sender, EventArgs args)
+		{
+			PlanAnalitic.Update();
 		}
 	}
 }

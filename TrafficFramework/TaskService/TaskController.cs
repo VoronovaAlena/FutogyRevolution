@@ -21,6 +21,8 @@ namespace TrafficFramework.TaskService
 		/// <summary>Таймер сработал.</summary>
 		public event TaskHandler TaskElipse;
 
+		public event EventHandler TaskComplited;
+
 		private long _tick;
 
 		private Timer _timer;
@@ -33,8 +35,6 @@ namespace TrafficFramework.TaskService
 
 		public bool IsDisposed { get; private set; }  = false;
 
-		private bool Buffers { get; }
-
 		private void AddTick()
 		{
 			if(_tick < IDList.Length - 1)
@@ -43,6 +43,7 @@ namespace TrafficFramework.TaskService
 			}
 			else
 			{
+				TaskComplited?.Invoke(this, new EventArgs());
 				_tick = 0;
 			}
 		}
@@ -61,7 +62,7 @@ namespace TrafficFramework.TaskService
 		/// <param name="time">Интервал.</param>
 		/// <param name="id_list">Лист id.</param>
 		/// <param name="hasBuffer">Имеет ли запись данных.</param>
-		public TaskController(double time, long[] id_list, bool hasBuffer = false)
+		public TaskController(double time, long[] id_list)
 		{
 			_timer = new Timer(time);
 			_timer.Elapsed += DecisionAsync;
@@ -69,7 +70,6 @@ namespace TrafficFramework.TaskService
 
 			Client = new HttpClient();
 			Container = new List<TaskServiceData>();
-			Buffers = hasBuffer;
 		}
 
 		/// <summary>Запускает сервис.</summary>
@@ -87,7 +87,14 @@ namespace TrafficFramework.TaskService
 
 		private async void DecisionAsync(object sender, ElapsedEventArgs e)
 		{
-			await GetInformation();
+			try
+			{
+				await GetInformation();
+			}
+			catch(Exception exc)
+			{
+				Console.WriteLine(exc);
+			}
 		}
 
 		public async Task<TaskServiceData> GetInformation(long id = -1)
@@ -97,34 +104,31 @@ namespace TrafficFramework.TaskService
 			var time = DateTime.Now;
 
 			var item = IDList[!isForced ? _tick : id];
-			var responceInfo = await Client.GetByID(ApiGet.GetInfo, item.ToString());
-			var responceStatus = await Client.GetByID(ApiGet.GetStatus, item.ToString());
-
-			var stringFullInfo = await responceInfo.Content.ReadAsStringAsync();
-			var stringStatus = await responceStatus.Content.ReadAsStringAsync();
-
-			var context = new TaskServiceData(
-					new ControllerItem(stringFullInfo, stringStatus),
-					time);
-
-			if(Buffers)
+			using(var responceInfo = await Client.GetByID(ApiGet.GetInfo, item.ToString()))
+			using(var responceStatus = await Client.GetByID(ApiGet.GetStatus, item.ToString()))
 			{
-				Container.Add(context);
-			}
 
-			if(!isForced && responceInfo.StatusCode == System.Net.HttpStatusCode.OK
-				&& responceInfo.StatusCode == System.Net.HttpStatusCode.OK)
-			{
-				AddTick();
-				TaskElipse?.Invoke(context);
-			}
-			else if(!isForced)
-			{
-				System.Threading.Thread.Sleep(5000);
-				return await GetInformation(id);
-			}
+				var stringFullInfo = await responceInfo.Content.ReadAsStringAsync();
+				var stringStatus = await responceStatus.Content.ReadAsStringAsync();
 
-			return context;
+				var context = new TaskServiceData(
+						new ControllerItem(stringFullInfo, stringStatus),
+						time);
+
+				if(!isForced && responceInfo.StatusCode == System.Net.HttpStatusCode.OK
+					&& responceInfo.StatusCode == System.Net.HttpStatusCode.OK)
+				{
+					AddTick();
+					TaskElipse?.Invoke(context);
+				}
+				else if(!isForced)
+				{
+					System.Threading.Thread.Sleep(5000);
+					return await GetInformation(id);
+				}
+
+				return context;
+			}
 		}
 
 		public void TestAsync()

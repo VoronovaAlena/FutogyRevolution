@@ -21,6 +21,6 @@ namespace TrafficFramework.InputData
 			81060,
 		};
 
-		public static long TimeInterval = 30000;
+		public static long TimeInterval = 900;
 	}
 }
