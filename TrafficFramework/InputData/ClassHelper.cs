@@ -22,5 +22,7 @@ namespace TrafficFramework.InputData
 		};
 
 		public static long TimeInterval = 900;
+
+		public static long GetId = 0;
 	}
 }

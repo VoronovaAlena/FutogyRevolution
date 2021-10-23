@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrafficFramework.Binary;
 using TrafficFramework.DataResponse;
 using TrafficFramework.TaskService;
 
@@ -23,6 +24,15 @@ namespace TrafficFramework.Data
 		public void Add(TaskServiceData task)
 		{
 			TaskServiceDatas.Add(task);
+		}
+
+		/// <summary>Сохраняет локально текущую конфигурацию всех ДК.</summary>
+		public void Caching()
+		{
+			foreach(var item in PlanPhases)
+			{
+				//CashingBinary.SaveInfo(item.DocPlan, item.DocStatus);
+			}
 		}
 
 		/// <summary>Обновляет и компанует данные.</summary>
@@ -46,7 +56,7 @@ namespace TrafficFramework.Data
 				{
 					var valid = mode.TimeInterval.TotalSeconds;
 					valid = valid < 0 ? 0 : valid;
-					Console.Write($"Id:{mode.Id} [{(int)valid}] aprax:[{mode.ApraxDelta}]");
+					Console.Write($"Id:{mode.Id} [{(int)valid}] aprax:[{mode.ApraxDelta}] ");
 				}
 				Console.WriteLine("]");
 			}

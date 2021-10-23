@@ -15,6 +15,8 @@ namespace ConsoleTestService
 	{
 		static PlanAnalitic PlanAnalitic { get; } = new PlanAnalitic();
 
+		static TaskController TaskController { get; set; }
+
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Start service");
@@ -23,8 +25,42 @@ namespace ConsoleTestService
 			controller.TaskElipse += Reader;
 			controller.TaskComplited += Update;
 			controller.Start();
+			TaskController = controller;
 
-			Console.ReadKey();
+			var readConsole = string.Empty;
+			do
+			{
+				if(controller.Started)
+				{
+					Console.ReadKey();
+					TaskController.Stop();
+					Console.WriteLine("App paused... Write: start or exit.");
+				}
+				readConsole = Console.ReadLine();
+				ConsoleReadLineCommand(readConsole);
+			} 
+			while(readConsole != "exit");
+		}
+
+		private static void ConsoleReadLineCommand(string command)
+		{
+			switch(command)
+			{
+				case "start":
+					Console.WriteLine("continue...");
+					TaskController.Start();
+					break;
+				case "exit":
+					Console.WriteLine("exiting...");
+					TaskController.Stop();
+					break;
+				case "clear":
+					Console.Clear();
+					break;
+				default:
+					Console.WriteLine("not correct");
+					break;
+			}
 		}
 
 		private static void Reader(TaskServiceData data)

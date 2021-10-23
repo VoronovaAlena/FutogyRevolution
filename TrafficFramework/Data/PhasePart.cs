@@ -26,14 +26,19 @@ namespace TrafficFramework.Data
 		public void UpdateInterval()
 		{
 			var interval = TimeEnd - TimeStart;
+			ApraxDelta = (float)(TimeInterval.TotalSeconds - interval.TotalSeconds);
 			if(TimeInterval.TotalSeconds < interval.TotalSeconds)
 			{
-				ApraxDelta = (float)(TimeInterval.TotalSeconds - interval.TotalSeconds);
+
 				if(_limitAprax > ApraxDelta)
 				{
 					HasMaxAprax = true;
 				}
 				TimeInterval = interval;
+			}
+			else
+			{
+				TimeInterval.Subtract(new TimeSpan(0,0, (int)(ApraxDelta / 4)));
 			}
 		}
 	}

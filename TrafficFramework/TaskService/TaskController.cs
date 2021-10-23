@@ -34,6 +34,8 @@ namespace TrafficFramework.TaskService
 
 		private long[] IDList;
 
+		public bool Started { get; private set; } = false;
+
 		private List<TaskServiceData> Container { get; }
 
 		public bool IsDisposed { get; private set; }  = false;
@@ -73,14 +75,22 @@ namespace TrafficFramework.TaskService
 		/// <summary>Запускает сервис.</summary>
 		public void Start()
 		{
-			_timer.Start();
-			Task.Factory.StartNew(()=> TestAsync());
+			if(!Started)
+			{
+				Started = true;
+				_timer.Start();
+				Task.Factory.StartNew(() => TestAsync());
+			}
 		}
 
 		/// <summary>Останавливает сервис.</summary>
 		public void Stop()
 		{
-			_timer.Stop();
+			if(Started)
+			{
+				_timer.Stop();
+				Started = false;
+			}
 		}
 
 		private async void DecisionAsync(object sender, ElapsedEventArgs e)
