@@ -41,7 +41,7 @@ namespace TrafficFramework.Data
 				}
 				plan.Add(docStatus);
 
-				Console.Write($"Id:{plan.Id} - [");
+				Console.Write($"Id-Dk:{plan.Id} - Phases[");
 				foreach(var mode in plan.Phases)
 				{
 					var valid = mode.TimeInterval.TotalSeconds;

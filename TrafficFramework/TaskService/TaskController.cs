@@ -27,6 +27,8 @@ namespace TrafficFramework.TaskService
 
 		private Timer _timer;
 
+		private object _locker = new object();
+
 		private HttpClient Client;
 
 		private long[] IDList;
@@ -39,7 +41,7 @@ namespace TrafficFramework.TaskService
 		{
 			if(_tick < IDList.Length - 1)
 			{
-				_tick++;
+				_tick = _tick + 1;
 			}
 			else
 			{
@@ -94,6 +96,8 @@ namespace TrafficFramework.TaskService
 			catch(Exception exc)
 			{
 				Console.WriteLine(exc);
+				System.Threading.Thread.Sleep(10000);
+				Console.WriteLine();
 			}
 		}
 
@@ -108,6 +112,12 @@ namespace TrafficFramework.TaskService
 			using(var responceStatus = await Client.GetByID(ApiGet.GetStatus, item.ToString()))
 			{
 
+				if(responceInfo.StatusCode != System.Net.HttpStatusCode.OK
+					|| responceInfo.StatusCode != System.Net.HttpStatusCode.OK)
+				{
+					throw new Exception("Bad Request");
+				}
+
 				var stringFullInfo = await responceInfo.Content.ReadAsStringAsync();
 				var stringStatus = await responceStatus.Content.ReadAsStringAsync();
 
@@ -118,8 +128,11 @@ namespace TrafficFramework.TaskService
 				if(!isForced && responceInfo.StatusCode == System.Net.HttpStatusCode.OK
 					&& responceInfo.StatusCode == System.Net.HttpStatusCode.OK)
 				{
-					AddTick();
-					TaskElipse?.Invoke(context);
+					lock(_locker)
+					{
+						AddTick();
+						TaskElipse?.Invoke(context);
+					}
 				}
 				else if(!isForced)
 				{
@@ -127,13 +140,22 @@ namespace TrafficFramework.TaskService
 					return await GetInformation(id);
 				}
 
+				
+
 				return context;
 			}
 		}
 
 		public void TestAsync()
 		{
-			GetInformation().Wait();
+			try
+			{
+				GetInformation().Wait();
+			}
+			catch(Exception exc)
+			{
+				Console.WriteLine(exc);
+			}
 		}
 
 		public void Dispose()

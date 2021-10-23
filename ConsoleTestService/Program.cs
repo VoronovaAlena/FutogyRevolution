@@ -33,7 +33,7 @@ namespace ConsoleTestService
 			var docPlan   = JsonParse.Deserialize<FullInfo>(context.FullInfo);
 			var docStatus = JsonParse.Deserialize<Status>(context.Status);
 
-			Console.WriteLine(docStatus.current_phase_id + " " + docStatus.rc_response.status_msg.rc_id + " " + docPlan.t_cycle + " " + DateTime.Now);
+			Console.WriteLine("Id-Phase:" + docStatus.current_phase_id + " id-Dk:" + docStatus.rc_response.status_msg.rc_id + " cycle:" + docPlan.t_cycle + " time:" + DateTime.Now);
 		}
 
 		/// <summary>Вызывается при выполнении всех ДК.</summary>
