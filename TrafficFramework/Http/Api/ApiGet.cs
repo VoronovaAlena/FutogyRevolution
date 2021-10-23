@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApiTraffic
+namespace TrafficFramework.Http.Api
 {
 	public class ApiGet
 	{

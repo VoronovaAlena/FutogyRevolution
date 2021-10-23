@@ -5,6 +5,9 @@ using TrafficFramework.InputData;
 using TrafficFramework.DataResponse;
 using TrafficFramework.Data;
 using System.Threading.Tasks;
+using TrafficFramework.Http.Api;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace ConsoleTestService
 {
