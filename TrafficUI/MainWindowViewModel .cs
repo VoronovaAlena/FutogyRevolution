@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrafficFramework.DataResponse;
+using TrafficFramework.TaskService;
 
 namespace TrafficUI
 {
@@ -229,10 +231,55 @@ namespace TrafficUI
         }
 
 
-        public void Update()
+        public void Update(TaskServiceData task)
 		{
+            var json = JsonParse.Deserialize<FullInfo>(task.Context.FullInfo);
+            var status = JsonParse.Deserialize<Status>(task.Context.Status);
 
-		}
+            switch(json.Id)
+            {
+                case 81051:
+                    Controller1 = $"Id:{json.Id}";
+                    Phase1 = $"Id:{status.current_phase_id}";
+                    break;
+                case 81052:
+                    Controller2 = $"Id:{json.Id}";
+                    Phase2 = $"Id:{status.current_phase_id}";
+                    break;
+                case 81053:
+                    Controller3 = $"Id:{json.Id}";
+                    Phase3 = $"Id:{status.current_phase_id}";
+                    break;
+                case 81054:
+                    Controller4 = $"Id:{json.Id}";
+                    Phase4 = $"Id:{status.current_phase_id}";
+                    break;
+                case 81055:
+                    Controller5 = $"Id:{json.Id}";
+                    Phase5 = $"Id:{status.current_phase_id}";
+                    break;
+                case 81056:
+                    Controller6 = $"Id:{json.Id}";
+                    Phase6 = $"Id:{status.current_phase_id}";
+                    break;
+                case 81057:
+                    Controller7 = $"Id:{json.Id}";
+                    Phase7 = $"Id:{status.current_phase_id}";
+                    break;
+                case 81058:
+                    Controller8 = $"Id:{json.Id}";
+                    Phase8 = $"Id:{status.current_phase_id}";
+                    break;
+                case 81059:
+                    Controller9 = $"Id:{json.Id}";
+                    Phase9 = $"Id:{status.current_phase_id}";
+                    break;
+                case 81060:
+                    Controller10 = $"Id:{json.Id}";
+                    Phase10 = $"Id:{status.current_phase_id}";
+                    break;
+            }
+        }
 
     }
 }
