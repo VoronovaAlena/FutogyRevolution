@@ -29,9 +29,34 @@ namespace TrafficFramework.Data
 		/// <summary>Сохраняет локально текущую конфигурацию всех ДК.</summary>
 		public void Caching()
 		{
+			CaсhingBinary.DeleteAll();
 			foreach(var item in PlanPhases)
 			{
-				//CashingBinary.SaveInfo(item.DocPlan, item.DocStatus);
+				var preBinary = new BinaryData(item);
+				var data = preBinary.Serilization();
+				var fileName = CaсhingBinary.SaveInfo(data);
+			}
+		}
+
+		public void Open()
+		{
+			var datas = CaсhingBinary.ReadInfo();
+			if(datas != null)
+			{
+				PlanPhases.Clear();
+				foreach(var item in datas)
+				{
+					var data = JsonParse.Deserialize<BinaryData>(item);
+					PlanPhases.Add(new PlanPhase(data.Id, data.Full, data.Status)
+					{
+						Id_Plan = data.IdPlan,
+						Phases = data.Phases.ToList()
+					});
+				}
+			}
+			else
+			{
+				Console.WriteLine("File not found.");
 			}
 		}
 

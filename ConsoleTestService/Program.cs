@@ -57,6 +57,12 @@ namespace ConsoleTestService
 				case "clear":
 					Console.Clear();
 					break;
+				case "cache":
+					PlanAnalitic.Caching();
+					break;
+				case "open":
+					PlanAnalitic.Open();
+					break;
 				default:
 					Console.WriteLine("not correct");
 					break;

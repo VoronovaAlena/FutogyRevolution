@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using TrafficFramework.DataResponse;
 
@@ -6,17 +7,50 @@ namespace TrafficFramework.Binary
 {
 	public class CaсhingBinary
 	{
-		private readonly static string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+		private readonly static string FilePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\" + "TestProgram\\";
 
-		private static string FileName = $@"binary_{DateTime.Now.Ticks}.dat";
-
-        public static void SaveInfo(FullInfo fullInfo, Status status, string strick)
+        public static string SaveInfo(string data)
         {
-			using(BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(FilePath, FileName), FileMode.Create)))
+			if(!Directory.Exists(FilePath))
 			{
-				writer.Write(fullInfo.ToString());
-				writer.Write(status.ToString());
+				Directory.CreateDirectory(FilePath);
+			}
+			var filename = $@"binary_{DateTime.Now.Ticks}.dat";
+			using(BinaryWriter writer = new BinaryWriter(File.Open(Path.Combine(FilePath, filename), FileMode.CreateNew)))
+			{
+				writer.Write(data);
+			}
+			return filename;
+		}
+
+		public static void DeleteAll()
+		{
+			if(Directory.Exists(FilePath))
+			{
+				var files = Directory.GetFiles(FilePath);
+				foreach(var item in files)
+				{
+					File.Delete(item);
+				}
 			}
 		}
-    }
+
+		public static string[] ReadInfo()
+		{
+			if(Directory.Exists(FilePath))
+			{
+				var files = Directory.GetFiles(FilePath);
+				List<string> list = new List<string>();
+				foreach(var file in files)
+				{
+					using(BinaryReader reader = new BinaryReader(File.Open(Path.Combine(FilePath, file), FileMode.Open)))
+					{
+						list.Add(reader.ReadString());
+					}
+				}
+				return list.ToArray();
+			}
+			return null;
+		}
+	}
 }

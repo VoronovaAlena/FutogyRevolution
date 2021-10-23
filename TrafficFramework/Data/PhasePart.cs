@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,16 @@ namespace TrafficFramework.Data
 {
 	public class PhasePart
 	{
+		[JsonProperty("id")]
 		public long Id { get; set; }
 
+		[JsonProperty("start")]
 		public DateTime TimeStart { get; set; }
 
+		[JsonProperty("end")]
 		public DateTime TimeEnd { get; set; }
 
+		[JsonProperty("interval")]
 		public TimeSpan TimeInterval { get; private set; }
 
 		/// <summary>Предел апроксимации.</summary>
@@ -38,7 +43,7 @@ namespace TrafficFramework.Data
 			}
 			else
 			{
-				TimeInterval.Subtract(new TimeSpan(0,0, (int)(ApraxDelta / 4)));
+				TimeInterval = TimeInterval.Add(new TimeSpan(0,0, -(int)(ApraxDelta / 4)));
 			}
 		}
 	}

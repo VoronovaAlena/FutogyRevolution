@@ -13,5 +13,10 @@ namespace TrafficFramework.DataResponse
 		{
 			return JsonConvert.DeserializeObject<T>(data);
 		}
+
+		public static string Serialize<T>(T data)
+		{
+			return JsonConvert.SerializeObject(data);
+		}
 	}
 }
