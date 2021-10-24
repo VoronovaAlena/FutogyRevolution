@@ -38,6 +38,8 @@ namespace TrafficFramework.Data
 			}
 		}
 
+		/// <summary>Загрузить локальную конфигурацию ДК.</summary>
+		/// <remarks>Не влияет на сами ДК.</remarks>
 		public void Open()
 		{
 			var datas = CaсhingBinary.ReadInfo();

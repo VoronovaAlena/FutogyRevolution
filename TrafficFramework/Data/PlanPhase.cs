@@ -40,7 +40,7 @@ namespace TrafficFramework.Data
 
 			if(cont == null)
 			{
-				Phases.Add(new PhasePart() { Id = status.current_phase_id, TimeStart = DateTime.Now, TimeEnd = DateTime.Now});
+				Phases.Add(new PhasePart() { Id = status.current_phase_id, TimeStart = DateTime.Now, TimeEnd = DateTime.Now });
 			}
 			else
 			{
@@ -49,7 +49,15 @@ namespace TrafficFramework.Data
 					cont.TimeStart = DateTime.Now;
 				}
 				cont.TimeEnd = DateTime.Now;
-				cont.UpdateInterval();
+				if(DocPlan.Phases == null || DocPlan.Phases.Length == 0)
+				{
+					cont.UpdateInterval();
+				}
+				else
+				{
+					var cst = DocPlan.Phases.FirstOrDefault(x => x.Id == status.current_phase_id);
+					cont.UpdateInterval(cst.TimeMain + cst.TimeProm);
+				}
 			}
 			LastId = status.current_phase_id;
 

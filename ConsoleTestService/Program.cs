@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TrafficFramework.Http.Api;
 using System.IO;
 using Newtonsoft.Json;
+using TrafficFramework;
 
 namespace ConsoleTestService
 {
@@ -17,11 +18,16 @@ namespace ConsoleTestService
 
 		static TaskController TaskController { get; set; }
 
+		static CompositeAlgorithm compositeAlgorithm { get; set; }
+
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Start service");
 
 			var controller = new TaskController(ClassHelper.TimeInterval, ClassHelper.InputIDs);
+
+			compositeAlgorithm = new CompositeAlgorithm(controller, PlanAnalitic);
+
 			controller.TaskElipse += Reader;
 			controller.TaskComplited += Update;
 			controller.Start();
@@ -42,6 +48,8 @@ namespace ConsoleTestService
 			while(readConsole != "exit");
 		}
 
+		/// <summary>Набор примитивных командлетов.</summary>
+		/// <param name="command"></param>
 		private static void ConsoleReadLineCommand(string command)
 		{
 			switch(command)
@@ -62,6 +70,12 @@ namespace ConsoleTestService
 					break;
 				case "open":
 					PlanAnalitic.Open();
+					break;
+				case "help":
+					Console.WriteLine("#start\n#exit\n#clear\n#cache\n#open");
+					break;
+				case "post":
+					compositeAlgorithm.Test();
 					break;
 				default:
 					Console.WriteLine("not correct");

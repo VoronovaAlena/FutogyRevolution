@@ -53,9 +53,13 @@ namespace TrafficFramework.TaskService
 			}
 		}
 
-		public async Task Algorithm(string request, Stream context, string[] args)
+		public async Task Algorithm(string request, string context, params string[] args)
 		{
-			await Client.Post(request, context, args);
+			var res = await Client.Post(request, context, args);
+			if(res.StatusCode == System.Net.HttpStatusCode.BadRequest)
+			{
+				Console.WriteLine(res);
+			}
 		}
 
 		/// <summary>Класс для мониторинга состояний.</summary>

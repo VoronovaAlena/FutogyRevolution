@@ -26,12 +26,17 @@ namespace ApiTraffic
 		/// <param name="stream">Контекст запроса.</param>
 		/// <param name="args">Аргументы запроса.</param>
 		/// <returns>Ответ запроса.</returns>
-		public static async Task<HttpResponseMessage> Post(this HttpClient client, string request, Stream stream, params string[] args)
+		public static async Task<HttpResponseMessage> Post(this HttpClient client, string request, string stream, params string[] args)
 		{
 			string res = string.Format(request, args);
-			var requestMsg = new HttpRequestMessage(HttpMethod.Post, res);
-			await requestMsg.Content.CopyToAsync(stream);
-			return await client.SendAsync(requestMsg);
+			/*var requestMsg = new HttpRequestMessage(HttpMethod.Post, res);
+			if(stream != null)
+			{
+				requestMsg.Content = new StringContent(stream);
+			}*/
+			//return await client.SendAsync(requestMsg);
+
+			return await client.PostAsync(res,new StringContent(stream));
 		}
 	}
 }

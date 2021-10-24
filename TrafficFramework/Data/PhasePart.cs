@@ -28,6 +28,11 @@ namespace TrafficFramework.Data
 
 		public bool HasMaxAprax { get; private set; }
 
+		public void UpdateInterval(float time)
+		{
+			TimeInterval = new TimeSpan(0,0,(int)time);
+		}
+
 		public void UpdateInterval()
 		{
 			var interval = TimeEnd - TimeStart;
